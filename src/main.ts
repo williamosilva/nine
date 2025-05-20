@@ -7,6 +7,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Nine URL Shortener API')
+
     .setDescription(
       `RESTful API for URL shortening, user management and click tracking.
 
