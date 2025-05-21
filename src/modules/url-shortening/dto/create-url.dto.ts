@@ -3,10 +3,10 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUrlDto {
   @ApiProperty({
-    description: 'URL original que será encurtada',
-    example: 'https://exemplo.com/artigo-muito-longo',
+    description: 'Original URL to be shortened',
+    example: 'https://example.com/very-long-article',
   })
-  @IsNotEmpty({ message: 'A URL original não pode ser vazia' })
-  @IsUrl({}, { message: 'Formato de URL inválido' })
+  @IsNotEmpty({ message: 'Original URL cannot be empty' })
+  @IsUrl({}, { message: 'Invalid URL format' })
   originalUrl: string;
 }
