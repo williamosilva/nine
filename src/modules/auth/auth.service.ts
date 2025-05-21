@@ -14,7 +14,7 @@ import { RegisterDto } from './dto/register.dto';
 
 import { AuthResponseDto } from './dto/auth-response.dto';
 
-import { User } from 'src/modules/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';

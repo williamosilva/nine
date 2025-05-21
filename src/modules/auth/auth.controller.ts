@@ -12,11 +12,10 @@ import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { AuthResponseDto } from './dto/auth-response.dto';
 import { ApiBody, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-
-import { User } from 'src/modules/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { GetUser } from 'src/common/decorators/get-user.decorator';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
+import { GetUser } from '../../common/decorators/get-user.decorator';
 
 @ApiTags('Auth')
 @Controller('auth')
