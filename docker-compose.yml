@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   nine:
     container_name: nine
@@ -5,11 +7,63 @@ services:
       context: .
       dockerfile: ./Dockerfile
       target: development
-    command: npm run start:dev
+    command: >
+      sh -c "npm install && npm run start:dev"
     env_file:
       - .env
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - node_modules:/usr/src/app/node_modules
     ports:
       - '3000:3000'
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=auth_db
+      - DB_SYNCHRONIZE=true
+
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: auth_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    depends_on:
+      - postgres
+    ports:
+      - '5050:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+  node_modules:
+
+networks:
+  app-network:
+    driver: bridge

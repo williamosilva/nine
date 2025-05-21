@@ -24,6 +24,5 @@ COPY package*.json ./
 RUN npm ci --only=production
 
 COPY --from=development /usr/src/app/dist ./dist
-COPY --from=development /usr/src/app/node_modules ./node_modules
 
 CMD ["node", "dist/main"]
