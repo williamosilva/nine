@@ -1,41 +1,30 @@
 # Changelog
 
-## [0.1.0] - 2025-05-21
+## [0.2.0] - 2025-05-22
 
 ### Added
 
-- **Authentication Module**
+- **URL Shortening Module**
+  - URL shortening service with 6-character code generation (nanoid)
+  - Click tracking and statistics system
+  - User ownership association for authenticated requests
+  - Request-scoped service for security isolation
+  - URL entity with TypeORM relations
 
-  - Login and registration system with email validation
-  - JWT-based authentication with access and refresh tokens
-  - Refresh token rotation and security hashing (bcrypt)
-  - Protected endpoints using `JwtAuthGuard`
-  - Custom decorators (`@GetUser`) for user context injection
+### Changed
 
-- **Key Features**
+- **Enhanced Authentication System**
+  - Custom `JwtAuthGuard`
+  - `JwtUserExtractor` middleware for user context injection
+  - Improved token validation flow with detailed logging
+  - Better error handling for malformed JWTs
 
-  - Endpoints:
-    - `POST /auth/login` (User login)
-    - `POST /auth/register` (User registration)
-    - `POST /auth/refresh` (Token refresh)
-    - `POST /auth/logout` (Session termination)
-  - Error handling for:
-    - Duplicate email registration (`ConflictException`)
-    - Invalid credentials (`UnauthorizedException`)
-    - Token validation failures (`ForbiddenException`)
+### Security
 
-- **Security**
+- Request context isolation for sensitive operations
+- Enhanced token extraction validation
+- Security logging for auth failures
 
-  - Password hashing with salt generation
-  - Environment variable configuration for secrets (`JWT_SECRET`, `JWT_REFRESH_SECRET`)
-  - Token expiration policies
+### Documentation
 
-- **Documentation**
-
-  - Integrated Swagger (OpenAPI) documentation with example payloads
-  - API tags and bearer auth configuration
-
-- **Dependencies**
-  - `@nestjs/jwt` for token management
-  - `bcrypt` for password hashing
-  - TypeORM integration for user operations
+- Extended Swagger annotations for auth/URL endpoints
