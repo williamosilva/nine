@@ -1,30 +1,46 @@
 # Changelog
 
-## [0.2.0] - 2025-05-22
+## [0.3.0] - 2025-05-21
 
 ### Added
 
-- **URL Shortening Module**
-  - URL shortening service with 6-character code generation (nanoid)
-  - Click tracking and statistics system
-  - User ownership association for authenticated requests
-  - Request-scoped service for security isolation
-  - URL entity with TypeORM relations
+- **User Operations Module**
 
-### Changed
+  - Complete CRUD operations for user-owned URLs
+  - Soft delete system with `deletedAt` field
+  - Owner validation for URL modifications
+  - Total clicks aggregation per user
+  - Custom request interface with user typing
 
-- **Enhanced Authentication System**
-  - Custom `JwtAuthGuard`
-  - `JwtUserExtractor` middleware for user context injection
-  - Improved token validation flow with detailed logging
-  - Better error handling for malformed JWTs
+- **Key Features**
+  - Endpoints:
+    - `GET /user-operations/urls` (List user URLs + statistics)
+    - `PATCH /user-operations/urls/:id` (Update URL destination)
+    - `DELETE /user-operations/urls/:id` (Soft delete URL)
+  - Business Rules:
+    - Prevention of operations on deleted URLs
+    - Strict user ownership validation
+    - Request body validation for updates
 
 ### Security
 
-- Request context isolation for sensitive operations
-- Enhanced token extraction validation
-- Security logging for auth failures
+- Ownership verification middleware
+- Protection against IDOR vulnerabilities
+- Sensitive operations require fresh JWT
 
 ### Documentation
 
-- Extended Swagger annotations for auth/URL endpoints
+- Detailed Swagger annotations for user operations:
+  - Response schemas with click statistics
+  - Error examples for invalid operations
+  - Authentication requirements
+  - Response status codes documentation
+
+### Testing
+
+- E2E tests for user operations flow
+- Unit tests for business logic:
+  - Soft delete validation
+  - Ownership checks
+  - Update payload validation
+  - Statistics calculation
