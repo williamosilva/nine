@@ -15,11 +15,12 @@ import {
   ApiOperation,
   ApiResponse,
   ApiBearerAuth,
+  ApiSecurity,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RequestWithUser } from './interfaces/request-with-user';
 
-@ApiTags('user-operations')
+@ApiTags('User Operations')
 @Controller('user-operations')
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
@@ -27,6 +28,8 @@ export class UserOperationsController {
   constructor(private readonly userOperationsService: UserOperationsService) {}
 
   @Get('urls')
+  @ApiBearerAuth('JWT-auth')
+  @ApiSecurity('JWT-auth')
   @ApiOperation({ summary: 'List all URLs of the authenticated user' })
   @ApiResponse({
     status: 200,
@@ -56,6 +59,8 @@ export class UserOperationsController {
   }
 
   @Patch('urls/:id')
+  @ApiBearerAuth('JWT-auth')
+  @ApiSecurity('JWT-auth')
   @ApiOperation({ summary: 'Updates an authenticated users URL' })
   @ApiResponse({
     status: 200,
@@ -74,6 +79,8 @@ export class UserOperationsController {
   }
 
   @Delete('urls/:id')
+  @ApiBearerAuth('JWT-auth')
+  @ApiSecurity('JWT-auth')
   @ApiOperation({
     summary: '(Internally) deletes an authenticated users URL',
   })

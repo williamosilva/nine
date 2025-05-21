@@ -1,43 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { setupSwagger } from './config/swagger.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
-    .setTitle('Nine URL Shortener API')
-    .setDescription(
-      `RESTful API for URL shortening, user management and click tracking.
-      
-## Features
-
-- User registration and authentication
-- URL shortening (with or without authentication)
-- Authenticated users can manage their own URLs
-- Access counting for each shortened URL
-- Soft deletes with timestamp
-
-> Shortened URLs are limited to 6 characters. Authenticated users have URLs tied to their account.
-
-Endpoints that require authentication use a Bearer token.
-
-All timestamps follow ISO 8601 format.`,
-    )
-    .setVersion('1.0.0')
-    .addTag('Auth', 'User authentication and registration')
-    .addTag('Url', 'Shorten, update, delete, list and redirect URLs')
-    .addTag('user-operations', 'User operations for managing URLs')
-    .addBearerAuth()
-    .build();
-
-  // Explicitly pass controllers to include in documentation
-  const document = SwaggerModule.createDocument(app, config);
-
-  // Log the available routes to debug
-  console.log('Available routes in Swagger:', Object.keys(document.paths));
-
-  SwaggerModule.setup('api', app, document);
+  setupSwagger(app);
 
   await app.listen(process.env.PORT ?? 3000);
 }
