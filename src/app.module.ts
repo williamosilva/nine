@@ -6,6 +6,7 @@ import { UsersModule } from './modules/users/users.module';
 import { getDatabaseConfig } from './config/database.config';
 import { UrlShorteningModule } from './modules/url-shortening/url-shortening.module';
 import { JwtUserExtractor } from './common/middlewares/jwt-user-extractor.middleware';
+import { UserOperationsModule } from './modules/user-operations/user-operations.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { JwtUserExtractor } from './common/middlewares/jwt-user-extractor.middle
     }),
     AuthModule,
     UsersModule,
+    UserOperationsModule,
     UrlShorteningModule,
   ],
 })
