@@ -6,7 +6,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { IsValidEmailFormat } from 'src/common/utils/email-format-validator';
+import { IsValidEmailFormat } from '../../../common/utils/email-format-validator';
 
 export class RegisterDto {
   @IsNotEmpty({ message: 'Name is required' })
