@@ -8,12 +8,6 @@ import { Request } from 'express';
 export const IS_PUBLIC_KEY = 'isPublic';
 export const Public = () => SetMetadata(IS_PUBLIC_KEY, true);
 
-interface JwtPayload {
-  id: number;
-  name: string;
-  email: string;
-}
-
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   constructor(private reflector: Reflector) {
@@ -29,9 +23,15 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     ]);
 
     if (isPublic) {
-      const request = context
-        .switchToHttp()
-        .getRequest<Request & { user?: JwtPayload }>();
+      const request = context.switchToHttp().getRequest<
+        Request & {
+          user?: {
+            id: number;
+            name: string;
+            email: string;
+          };
+        }
+      >();
 
       return this.handlePublicRoute(context).pipe(
         switchMap((authenticated) => {
