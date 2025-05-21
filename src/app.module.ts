@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { getDatabaseConfig } from './config/database.config';
+import { UrlShorteningModule } from './modules/url-shortening/url-shortening.module';
+import { JwtUserExtractor } from './common/middlewares/jwt-user-extractor.middleware';
 
 @Module({
   imports: [
@@ -17,6 +19,11 @@ import { getDatabaseConfig } from './config/database.config';
     }),
     AuthModule,
     UsersModule,
+    UrlShorteningModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(JwtUserExtractor).forRoutes('*');
+  }
+}

@@ -27,7 +27,7 @@ All timestamps follow ISO 8601 format.`,
     )
     .setVersion('1.0.0')
     .addTag('Auth', 'User authentication and registration')
-    .addTag('URL', 'Shorten, update, delete, list and redirect URLs')
+    .addTag('Url', 'Shorten, update, delete, list and redirect URLs')
     .addBearerAuth()
     .build();
 
@@ -36,4 +36,7 @@ All timestamps follow ISO 8601 format.`,
 
   await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+bootstrap().catch((err) => {
+  console.error('Application failed to start', err);
+  process.exit(1);
+});

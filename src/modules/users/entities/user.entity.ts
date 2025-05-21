@@ -1,9 +1,11 @@
+import { Url } from '../../../modules/url-shortening/entities/url.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -28,4 +30,7 @@ export class User {
 
   @Column({ type: 'text', nullable: true })
   refreshToken?: string | null;
+
+  @OneToMany(() => Url, (url) => url.user)
+  urls: Url[];
 }

@@ -1,6 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-import { User } from 'src/modules/users/entities/user.entity';
+import { User } from '../modules/users/entities/user.entity';
+import { Url } from '../modules/url-shortening/entities/url.entity';
 
 export const getDatabaseConfig = (
   configService: ConfigService,
@@ -11,7 +12,7 @@ export const getDatabaseConfig = (
   username: configService.get('DB_USERNAME', 'postgres'),
   password: configService.get('DB_PASSWORD', 'postgres'),
   database: configService.get('DB_DATABASE', 'auth_db'),
-  entities: [User],
+  entities: [User, Url],
   synchronize: configService.get('DB_SYNCHRONIZE') === 'true',
   logging: configService.get('DB_LOGGING') === 'true',
   ssl:
