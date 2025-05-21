@@ -10,6 +10,7 @@ import {
   ApiParam,
   ApiResponse,
   ApiBearerAuth,
+  ApiSecurity,
 } from '@nestjs/swagger';
 
 @ApiTags('Url')
@@ -18,7 +19,8 @@ export class UrlShorteningController {
   constructor(private readonly urlService: UrlShorteningService) {}
 
   @Post('url')
-  @ApiBearerAuth('JWT')
+  @ApiBearerAuth('JWT-auth')
+  @ApiSecurity('JWT-auth')
   @ApiOperation({
     summary: 'Shorten a URL',
     description:
@@ -44,6 +46,10 @@ export class UrlShorteningController {
         shortUrl: 'http://localhost/aZbKq7',
       },
     },
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid or missing JWT token',
   })
   async createShortUrl(@Body() createUrlDto: CreateUrlDto) {
     const shortUrl = await this.urlService.shortenUrl(createUrlDto);

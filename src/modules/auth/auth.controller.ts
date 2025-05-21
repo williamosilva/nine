@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { AuthResponseDto } from './dto/auth-response.dto';
-import { ApiBody, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBody, ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { User } from '../users/entities/user.entity';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
@@ -24,6 +24,9 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Authenticate user and return access and refresh tokens',
+  })
   @ApiBody({
     description: 'User login credentials',
     type: LoginDto,
@@ -45,6 +48,7 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: 'Register a new user and return tokens' })
   @ApiBody({
     description: 'Data for new user registration',
     type: RegisterDto,
@@ -67,6 +71,9 @@ export class AuthController {
 
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Use a refresh token to get new access and refresh tokens',
+  })
   @ApiBody({
     description: 'Refresh token to get new tokens',
     type: RefreshTokenDto,
@@ -81,6 +88,9 @@ export class AuthController {
   @ApiBearerAuth()
   @Post('logout')
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Logout the current user and invalidate refresh token',
+  })
   async logout(
     @GetUser() user: User,
   ): Promise<{ success: boolean; message: string }> {
