@@ -1,46 +1,33 @@
 # Changelog
 
-## [0.3.0] - 2025-05-21
+## [0.3.1] - 2025-05-23
 
-### Added
+### Database
 
-- **User Operations Module**
+- **Schema Migrations**
+  - Added `users` table with core authentication fields
+  - Added `urls` table with relationship to users
+  - UUID primary keys for URL entries
+  - Foreign key constraint (`FK_urls_userId`)
+  - Soft delete support via `deleted_at` column
 
-  - Complete CRUD operations for user-owned URLs
-  - Soft delete system with `deletedAt` field
-  - Owner validation for URL modifications
-  - Total clicks aggregation per user
-  - Custom request interface with user typing
+### Infrastructure
 
-- **Key Features**
-  - Endpoints:
-    - `GET /user-operations/urls` (List user URLs + statistics)
-    - `PATCH /user-operations/urls/:id` (Update URL destination)
-    - `DELETE /user-operations/urls/:id` (Soft delete URL)
-  - Business Rules:
-    - Prevention of operations on deleted URLs
-    - Strict user ownership validation
-    - Request body validation for updates
+- **TypeORM Configuration**
+  - Added `DataSource` configuration for migrations
+  - Environment-based database configuration
+  - PostgreSQL SSL support
+  - Migration file organization
+
+### Changed
+
+- **Database Schema**
+  - Standardized timestamp columns (`created_at`, `updated_at`)
+  - Added index for `short_code` uniqueness
+  - Optimized user-URL relationship structure
 
 ### Security
 
-- Ownership verification middleware
-- Protection against IDOR vulnerabilities
-- Sensitive operations require fresh JWT
-
-### Documentation
-
-- Detailed Swagger annotations for user operations:
-  - Response schemas with click statistics
-  - Error examples for invalid operations
-  - Authentication requirements
-  - Response status codes documentation
-
-### Testing
-
-- E2E tests for user operations flow
-- Unit tests for business logic:
-  - Soft delete validation
-  - Ownership checks
-  - Update payload validation
-  - Statistics calculation
+- **Database Credentials**
+  - Environment variable validation for DB connection
+  - Sensitive field encryption guidelines added to docs
