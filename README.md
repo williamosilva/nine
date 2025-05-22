@@ -102,11 +102,11 @@ cd nine
 
 ```env
 # Database Configuration
-DB_HOST=localhost
+DB_HOST='postgres' or 'localhost' for local enviroment
 DB_PORT=5432
 DB_USERNAME=postgres
 DB_PASSWORD=postgres
-DB_DATABASE=auth_db
+DB_DATABASE=mydb
 DB_SYNCHRONIZE=true
 DB_LOGGING=false
 DB_SSL=false

@@ -1,0 +1,15 @@
+node_modules
+dist
+.git
+.gitignore
+README.md
+.env
+.nyc_output
+coverage
+.nyc_output
+.husky
+**/*
+!src/
+!package*.json
+!tsconfig*.json
+!nest-cli.json

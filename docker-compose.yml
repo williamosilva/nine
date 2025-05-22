@@ -1,32 +1,18 @@
-version: '3.8'
-
 services:
   nine:
     container_name: nine
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-      target: development
-    command: >
-      sh -c "npm install && npm run start:dev"
+    build: .
     env_file:
       - .env
-    volumes:
-      - .:/usr/src/app
-      - node_modules:/usr/src/app/node_modules
     ports:
       - '3000:3000'
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
       - app-network
     environment:
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=postgres
-      - DB_DATABASE=mydb
-      - DB_SYNCHRONIZE=true
+      - DB_HOST=postgres # Database host, usually the service name.
 
   postgres:
     image: postgres:14
@@ -36,7 +22,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: mydb
+      POSTGRES_DB: mydb # It needs to be the same name as the variable that comes from the env in the value #DB_DATABASE
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -62,7 +48,6 @@ services:
 
 volumes:
   pgdata:
-  node_modules:
 
 networks:
   app-network:

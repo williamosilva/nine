@@ -1,28 +1,27 @@
-# Development Stage
-FROM node:22-alpine AS development
+# Build stage
+FROM node:22-alpine AS builder
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY tsconfig*.json ./
+COPY nest-cli.json ./
+COPY src/ src/
 
 RUN npm install
-
-COPY . .
-
 RUN npm run build
 
-# Production Stage
-FROM node:22-alpine AS production
+# ---
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+# Production stage
+FROM node:22-alpine
 
 WORKDIR /usr/src/app
+ENV NODE_ENV=production
 
 COPY package*.json ./
+RUN npm ci --omit=dev --ignore-scripts
 
-RUN npm ci --only=production
-
-COPY --from=development /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/dist ./dist
 
 CMD ["node", "dist/main"]
