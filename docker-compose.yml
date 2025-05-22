@@ -25,7 +25,7 @@ services:
       - DB_PORT=5432
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
-      - DB_DATABASE=auth_db
+      - DB_DATABASE=mydb
       - DB_SYNCHRONIZE=true
 
   postgres:
@@ -36,7 +36,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: auth_db
+      POSTGRES_DB: mydb
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:

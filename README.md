@@ -1,99 +1,355 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<div align="center">
+  <img src="https://i.imgur.com/VPKhOZq.png" alt="Nine Logo" width="200"/>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+  <h1>Nine</h1>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+  <p>A robust URL shortener REST API built with <a href="https://nestjs.com">NestJS</a></p>
+</div>
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Nine is a full-featured URL shortener service that allows users to register, authenticate, and manage their shortened URLs. The application provides secure user authentication using JWT tokens, URL shortening with custom short codes, and complete CRUD operations for URL management.
 
-## Project setup
+## Key Features
 
-```bash
-$ npm install
+- **User Authentication**: Complete registration and login system with JWT tokens
+- **URL Shortening**: Convert long URLs into short, manageable codes
+- **User Dashboard**: Users can view, update, and delete their URLs
+- **Secure**: JWT-based authentication with refresh token support
+- **API Documentation**: Interactive Swagger documentation
+- **Database**: PostgreSQL with TypeORM
+- **Testing**: Test suite with Jest
+- **Code Quality**: ESLint, Prettier, and Husky for code consistency
+
+## Tech Stack
+
+### Development Tools
+
+- **Jest**: Testing framework with coverage reports
+- **Husky**: Git hooks for automated code quality checks
+- **ESLint**: Code linting and error detection
+- **Prettier**: Code formatting
+- **Lint-staged**: Run linters on staged git files
+- **Docker**: Containerization for consistent development environment
+
+## API Endpoints
+
+### Authentication
+
+- `POST /auth/register` - Register a new user and return tokens
+- `POST /auth/login` - Authenticate user and return access and refresh tokens
+- `POST /auth/logout` - Logout the current user and invalidate refresh token
+- `POST /auth/refresh` - Use a refresh token to get new access and refresh tokens
+
+### URL Operations
+
+- `POST /url` - Shorten a URL
+- `GET /{shortCode}` - Redirect to the original URL using the shortcode
+- `GET /resolve/{shortCode}` - Get original URL (without redirect for swagger testing)
+
+### User Operations
+
+- `GET /user-operations/urls` - List all URLs of the authenticated user
+- `PATCH /user-operations/urls/{id}` - Update an authenticated user's URL
+- `DELETE /user-operations/urls/{id}` - Delete an authenticated user's URL
+
+## Setup and Installation
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Node.js (see Node.js Version Requirements below)
+- PostgreSQL (if running without Docker)
+
+### Node.js Version Requirements
+
+This project requires Node.js version **18.x** or higher. We recommend using the latest LTS version for optimal performance and security.
+
+**Supported versions:**
+
+- Node.js 18.x (minimum required)
+- Node.js 20.x (recommended LTS)
+- Node.js 22.x (latest supported)
+
+**Version enforcement:**
+The project uses the `engines` field in `package.json` to enforce Node.js version requirements:
+
+```json
+{
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
 ```
 
-## Compile and run the project
+### Environment Setup
+
+1. Clone the repository:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone <repository-url>
+cd nine
 ```
 
-## Run tests
+2. Create a `.env` file in the root directory with the following variables:
+
+```env
+# Database Configuration
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=auth_db
+DB_SYNCHRONIZE=true
+
+# JWT Configuration
+JWT_SECRET=your-super-secure-jwt-secret
+JWT_EXPIRES_IN=15m
+JWT_REFRESH_SECRET=your-super-secure-refresh-secret
+JWT_REFRESH_EXPIRES_IN=7d
+
+# Application
+PORT=3000
+NODE_ENV=development
+```
+
+### Running with Docker (Recommended)
+
+1. **Start the application with Docker Compose:**
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker-compose up -d
 ```
 
-## Deployment
+This will start:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- **Nine API**: Available at `http://localhost:3000`
+- **PostgreSQL Database**: Available at `localhost:5432`
+- **PgAdmin**: Available at `http://localhost:5050` (admin@admin.com / admin)
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+The application will automatically create the database tables using TypeORM's synchronize feature when it starts.
+
+2. **View application logs:**
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+docker-compose logs -f nine
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+3. **Stop the application:**
 
-## Resources
+```bash
+docker-compose down
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+### Running Locally (Without Docker)
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+**Important**: Before running the application locally, you must manually create the PostgreSQL database (Following the instructions in your .env)
 
-## Support
+1. **Install dependencies:**
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npm install
+```
 
-## Stay in touch
+2. **Create the PostgreSQL database manually:**
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+   Connect to your PostgreSQL instance and create the database:
 
-## License
+   ```sql
+   -- Connect to PostgreSQL (using psql or any PostgreSQL client)
+   psql -U postgres -h localhost
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+   -- Create the database
+   CREATE DATABASE auth_db;
+
+   -- Verify the database was created
+   \l
+   ```
+
+   Or using command line:
+
+   ```bash
+   # Create database using createdb command
+   createdb -U postgres -h localhost auth_db
+   ```
+
+3. **Start the development server:**
+
+```bash
+npm run start:dev
+```
+
+The application will be available at `http://localhost:3000`
+
+The database tables will be automatically created by TypeORM when the application starts, so no manual migration is needed for basic setup.
+
+## Database Migrations (Optional)
+
+The application uses TypeORM with synchronize enabled, which automatically creates and updates database tables when the application starts. **You don't need to run migrations for basic setup.**
+
+However, if you want to manage database schema changes manually using migrations instead of automatic synchronization, you can use the following commands:
+
+**Important**: Before running migrations, make sure the PostgreSQL database exists. If running migrations locally, you must create the database manually as described in the "Running Locally" section above.
+
+### Run pending migrations:
+
+```bash
+npm run migration:run
+```
+
+### Revert last migration:
+
+```bash
+npm run migration:revert
+```
+
+### Show migration status:
+
+```bash
+npm run migration:show
+```
+
+**Note**: If you choose to use migrations, make sure to set `DB_SYNCHRONIZE=false` in your environment variables to prevent automatic schema synchronization.
+
+## Testing
+
+### Run all tests:
+
+```bash
+npm run test
+```
+
+### Run tests in watch mode:
+
+```bash
+npm run test:watch
+```
+
+### Run tests with coverage:
+
+```bash
+npm run test:cov
+```
+
+## Development
+
+### Code Quality
+
+The project uses several tools to maintain code quality:
+
+- **ESLint**: Linting is automatically run on pre-commit via Husky
+- **Prettier**: Code formatting is applied automatically
+- **Husky**: Git hooks ensure code quality before commits
+- **Lint-staged**: Only staged files are linted and formatted
+
+### Git Hooks (Husky)
+
+The project uses Husky to run automated checks on git commits:
+
+**Pre-commit hook** - Runs linting and formatting on staged files:
+
+```bash
+npx lint-staged
+```
+
+**Pre-push hook** - Runs tests before pushing to ensure code quality:
+
+```bash
+npm test
+```
+
+These hooks ensure that all committed code follows the project's coding standards and passes tests.
+
+### CI/CD
+
+The project is configured to work with GitHub Actions for continuous integration, running automated tests, linting, and code quality checks on every push and pull request to ensure code integrity.
+
+## API Documentation
+
+Once the application is running, you can access the interactive Swagger documentation at:
+
+```
+http://localhost:3000/api
+```
+
+This provides a complete interface to test all endpoints and view detailed API specifications.
+
+## Docker Services
+
+The application uses a multi-service Docker setup:
+
+- **nine**: Main NestJS application
+- **postgres**: PostgreSQL database
+- **pgadmin**: Database administration interface
+
+All services are connected via a custom Docker network for secure communication.
+
+## Horizontal Scaling Considerations
+
+### Improvement Points for Horizontal Scaling
+
+1. **Database Optimization**
+
+   - Implement database read replicas for load distribution
+   - Add connection pooling (e.g., PgBouncer)
+   - Consider sharding for URL data storage
+
+2. **Caching Layer**
+
+   - Add Redis cache for frequent URL lookups
+   - Implement JWT token revocation list cache
+   - Cache popular URLs to reduce database load
+
+3. **Stateless Architecture**
+
+   - Centralize session storage for JWT refresh tokens
+   - Use distributed cache for rate limiting counters
+
+4. **Load Balancing**
+
+   - Add health check endpoints for load balancers
+   - Consider cloud-native solutions (AWS ALB, GCP Load Balancer)
+
+5. **Asynchronous Processing**
+
+   - Add message queue (RabbitMQ/Kafka) for:
+     - Analytics processing
+     - Notification system
+
+6. **Security Scaling**
+   - Implement global rate limiting
+   - Add DDoS protection layer
+   - Centralized secret management (Vault/AWS Secrets Manager)
+
+### Main Scaling Challenges
+
+1. **Data Consistency**
+
+   - Maintaining URL consistency across multiple database instances
+   - Cache invalidation strategies for URL updates/deletions
+
+2. **State Management**
+
+   - Handling refresh token revocation in distributed systems
+   - Managing concurrent URL updates across instances
+
+3. **Performance Bottlenecks**
+
+   - Hotspot URLs creating uneven load distribution
+   - Database write contention for popular short codes
+
+4. **Operational Complexity**
+
+   - Managing zero-downtime deployments
+   - Coordinated schema migrations
+   - Cross-service tracing and debugging
+
+5. **Geographical Distribution**
+
+   - Maintaining low latency for global users
+   - Data residency compliance challenges
+
+6. **Cost Management**
+   - Predicting and optimizing cloud infrastructure costs
+   - Auto-scaling strategy optimization

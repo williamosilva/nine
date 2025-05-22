@@ -1,33 +1,27 @@
 # Changelog
 
-## [0.3.1] - 2025-05-23
+## [0.3.2-RC] - 2023-10-22
 
-### Database
+### Documentation
 
-- **Schema Migrations**
-  - Added `users` table with core authentication fields
-  - Added `urls` table with relationship to users
-  - UUID primary keys for URL entries
-  - Foreign key constraint (`FK_urls_userId`)
-  - Soft delete support via `deleted_at` column
+📄 **README Overhaul**
 
-### Infrastructure
+- Added comprehensive project documentation
+- Included API endpoint reference table
 
-- **TypeORM Configuration**
-  - Added `DataSource` configuration for migrations
-  - Environment-based database configuration
-  - PostgreSQL SSL support
-  - Migration file organization
+### Configuration
 
-### Changed
+⚙️ **Environment Management**
 
-- **Database Schema**
-  - Standardized timestamp columns (`created_at`, `updated_at`)
-  - Added index for `short_code` uniqueness
-  - Optimized user-URL relationship structure
+- Standardized environment variables
+- Added example .env file template
 
-### Security
+📦 **Package Management**
 
-- **Database Credentials**
-  - Environment variable validation for DB connection
-  - Sensitive field encryption guidelines added to docs
+- Added engines requirement to package.json:
+  ```json
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+  ```
