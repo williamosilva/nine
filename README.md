@@ -113,9 +113,9 @@ DB_SSL=false
 
 # JWT Configuration
 JWT_SECRET=your-super-secure-jwt-secret
-JWT_EXPIRES_IN=15m
+JWT_EXPIRATION=15m
 JWT_REFRESH_SECRET=your-super-secure-refresh-secret
-JWT_REFRESH_EXPIRES_IN=7d
+JWT_REFRESH_EXPIRATION=7d
 
 # Application
 PORT=3000
