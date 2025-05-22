@@ -170,7 +170,7 @@ npm install
    psql -U postgres -h localhost
 
    -- Create the database
-   CREATE DATABASE auth_db;
+   CREATE DATABASE mydb;
 
    -- Verify the database was created
    \l
@@ -180,7 +180,7 @@ npm install
 
    ```bash
    # Create database using createdb command
-   createdb -U postgres -h localhost auth_db
+   createdb -U postgres -h localhost mydb
    ```
 
 3. **Start the development server:**
