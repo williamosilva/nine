@@ -4,6 +4,12 @@
   <h1>Nine</h1>
 
   <p>A robust URL shortener REST API built with <a href="https://nestjs.com">NestJS</a></p>
+
+  <p>
+    <a href="https://nine-05117fcebc0d.herokuapp.com/api" target="_blank">
+      <img src="https://img.shields.io/badge/🚀%20Deploy-Heroku-purple?style=for-the-badge" alt="Deploy on Heroku"/>
+    </a>
+  </p>
 </div>
 
 ## Description
