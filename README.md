@@ -89,7 +89,7 @@ The project uses the `engines` field in `package.json` to enforce Node.js versio
 
 ```bash
 git clone https://github.com/williamosilva/nine
-cd nine
+cd nineq
 ```
 
 2. Create a `.env` file in the root directory with the following variables:
@@ -102,6 +102,8 @@ DB_USERNAME=postgres
 DB_PASSWORD=postgres
 DB_DATABASE=auth_db
 DB_SYNCHRONIZE=true
+DB_LOGGING=false
+DB_SSL=false
 
 # JWT Configuration
 JWT_SECRET=your-super-secure-jwt-secret
@@ -112,6 +114,7 @@ JWT_REFRESH_EXPIRES_IN=7d
 # Application
 PORT=3000
 NODE_ENV=development
+BASE_URL=http://localhost:3000
 ```
 
 ### Running with Docker (Recommended)
