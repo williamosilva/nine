@@ -1,8 +1,8 @@
 import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
-import { User } from './src/modules/users/entities/user.entity';
-import { Url } from './src/modules/url-shortening/entities/url.entity';
+import { User } from '../modules/users/entities/user.entity';
+import { Url } from '../modules/url-shortening/entities/url.entity';
 
 config();
 
