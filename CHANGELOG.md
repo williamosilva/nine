@@ -1,5 +1,45 @@
 # Changelog
 
+## [0.3.4] - 2025-05-22
+
+### 🚀 Deployment
+
+**Docker Optimization**
+
+- Improved Docker build process with multi-stage builds
+- Updated docker-compose configuration for production environment
+- Removed development dependencies from container image
+
+### 🐛 Bug Fixes
+
+**Configuration Updates**
+
+- Fixed database configuration in migration commands
+- Corrected changelog date formatting inconsistencies
+- Updated environment variables validation
+
+### 📝 Documentation
+
+**API Documentation**
+
+- Added Swagger decorators for DTO classes (LoginDto, RegisterDto)
+- Enhanced API property descriptions in schema definitions
+
+**Setup Guides**
+
+- Updated Docker deployment instructions
+- Improved database configuration examples
+- Fixed repository clone command syntax
+
+### ⚙️ Infrastructure
+
+**Database Configuration**
+
+- Restructured TypeORM migration setup
+- Added production-ready database connection parameters
+
+---
+
 ## [0.3.3] - 2025-05-22
 
 ### 🚀 Deployment
