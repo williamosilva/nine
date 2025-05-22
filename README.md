@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://i.imgur.com/VPKhOZq.png" alt="Nine Logo" width="200"/>
+  <img src="https://imgur.com/KAsRGKn" alt="Nine Logo" width="200"/>
 
   <h1>Nine</h1>
 
@@ -88,7 +88,7 @@ The project uses the `engines` field in `package.json` to enforce Node.js versio
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/williamosilva/nine
 cd nine
 ```
 
