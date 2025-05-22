@@ -1,8 +1,8 @@
 {
   "name": "nine",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "0.3.0",
+  "description": "A NestJS application with TypeORM, JWT, and Passport for authentication for a REST API",
+  "author": "William Silva",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -18,7 +18,12 @@
     "test:cov": "jest --coverage --passWithNoTests",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d ormconfig.ts",
+    "migration:create": "typeorm-ts-node-commonjs migration:create",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d ormconfig.ts",
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d ormconfig.ts",
+    "migration:show": "typeorm-ts-node-commonjs migration:show -d ormconfig.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
