@@ -1,11 +1,14 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
-import { User } from '../modules/users/entities/user.entity';
-import { Url } from '../modules/url-shortening/entities/url.entity';
+import { config } from 'dotenv';
+import { User } from './src/modules/users/entities/user.entity';
+import { Url } from './src/modules/url-shortening/entities/url.entity';
 
-export const getDatabaseConfig = (
-  configService: ConfigService,
-): TypeOrmModuleOptions => ({
+config();
+
+const configService = new ConfigService();
+
+export default new DataSource({
   type: 'postgres',
   host: configService.get('DB_HOST', 'localhost'),
   port: Number(configService.get('DB_PORT', 5432)),
@@ -13,10 +16,8 @@ export const getDatabaseConfig = (
   password: configService.get('DB_PASSWORD', 'postgres'),
   database: configService.get('DB_DATABASE', 'auth_db'),
   entities: [User, Url],
-  migrations: ['dist/database/migrations/*.js'],
+  migrations: ['src/database/migrations/*.ts'],
   migrationsTableName: 'migrations',
-  synchronize: configService.get('DB_SYNCHRONIZE') === 'true',
-  logging: configService.get('DB_LOGGING') === 'true',
   ssl:
     configService.get('DB_SSL') === 'true'
       ? { rejectUnauthorized: false }
