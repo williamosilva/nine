@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://imgur.com/KAsRGKn" alt="Nine Logo" width="200"/>
+  <img src="https://i.imgur.com/KAsRGKn.png" alt="Nine Logo" width="200"/>
 
   <h1>Nine</h1>
 
@@ -88,8 +88,8 @@ The project uses the `engines` field in `package.json` to enforce Node.js versio
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/williamosilva/nine
-cd nineq
+git clone <repository-url>
+cd nine
 ```
 
 2. Create a `.env` file in the root directory with the following variables:
@@ -102,8 +102,6 @@ DB_USERNAME=postgres
 DB_PASSWORD=postgres
 DB_DATABASE=auth_db
 DB_SYNCHRONIZE=true
-DB_LOGGING=false
-DB_SSL=false
 
 # JWT Configuration
 JWT_SECRET=your-super-secure-jwt-secret
@@ -114,7 +112,6 @@ JWT_REFRESH_EXPIRES_IN=7d
 # Application
 PORT=3000
 NODE_ENV=development
-BASE_URL=http://localhost:3000
 ```
 
 ### Running with Docker (Recommended)
